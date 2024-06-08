@@ -4,9 +4,9 @@ class Vector2:
 
     def calculate(self, other, operator: str):
         if isinstance(other, Vector2):
-            return Vector2(eval(f"{other.X}{operator}{self.X}"), eval(f"{other.Y}{operator}{self.Y}"))
+            return Vector2(eval(f"{self.X}{operator}{other.X}"), eval(f"{self.Y}{operator}{other.Y}"))
 
-        return Vector2(eval(f"{other}{operator}{self.X}"), eval(f"{other}{operator}{self.Y}"))
+        return Vector2(eval(f"{self.X}{operator}{other.X}"), eval(f"{self.Y}{operator}{other.Y}"))
 
     def __add__(self, other):
         return self.calculate(other, "+")

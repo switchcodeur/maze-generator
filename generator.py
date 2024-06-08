@@ -11,9 +11,6 @@ class Cell:
         if wall in self.walls:
             self.walls.remove(wall)
 
-    def visit(self):
-        self.visited = True
-
 
 class Grid:
     def __init__(self, size: Vector2):
@@ -37,15 +34,15 @@ class Grid:
 
     def remove_wall(self, start: Vector2, end: Vector2):
         move = end - start
-
+        print(move.position, end.position)
         if move.position == (0, 1):
             self.array[f"{end.X};{end.Y}"].remove_wall("top")
         elif move.position == (0, -1):
             self.array[f"{start.X};{start.Y}"].remove_wall("top")
         elif move.position == (1, 0):
-            self.array[f"{end.X};{end.Y}"].remove_wall("right")
-        elif move.position == (-1, 0):
             self.array[f"{start.X};{start.Y}"].remove_wall("right")
+        elif move.position == (-1, 0):
+            self.array[f"{end.X};{end.Y}"].remove_wall("right")
 
 
 class Walker:
@@ -72,7 +69,7 @@ class Walker:
         choice = rchoice(possibilities)
 
         self.grid.remove_wall(self.position, choice)
-        self.grid.array[f"{choice.X};{choice.Y}"].visit()
+        self.grid.array[f"{choice.X};{choice.Y}"].visited = True
 
         self.path.append(choice)
         self.position = choice
@@ -82,8 +79,7 @@ class Walker:
         self.path.pop(-1)
 
     def walk(self):
-        while len(self.path) > 0:
-            possibilities = self.get_possibles_moves()
+        possibilities = self.get_possibles_moves()
 
-            self.move_forward(possibilities) if possibilities \
-                else self.move_backward()
+        self.move_forward(possibilities) if possibilities \
+            else self.move_backward()
