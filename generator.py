@@ -34,7 +34,7 @@ class Grid:
 
     def remove_wall(self, start: Vector2, end: Vector2):
         move = end - start
-        print(move.position, end.position)
+        
         if move.position == (0, 1):
             self.array[f"{end.X};{end.Y}"].remove_wall("top")
         elif move.position == (0, -1):
